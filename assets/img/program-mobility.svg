@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="640" y2="360"><stop offset="0%" stop-color="#0f0f0f"/><stop offset="100%" stop-color="#16281f"/></linearGradient></defs>
+  <rect width="640" height="360" fill="url(#g)"/>
+  <g fill="none" stroke="#c8ff2e" stroke-width="3" stroke-linecap="round">
+    <path d="M150,220 Q235,120 320,190 T490,150" opacity="0.9"/>
+    <path d="M150,250 Q235,150 320,220 T490,180" opacity="0.55"/>
+    <path d="M150,280 Q235,180 320,250 T490,210" opacity="0.25"/>
+  </g>
+  <circle cx="150" cy="220" r="8" fill="#c8ff2e"/>
+  <circle cx="490" cy="150" r="8" fill="#c8ff2e"/>
+  <text x="320" y="320" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#666" letter-spacing="2">MOBILITY &amp; RECOVERY</text>
+</svg>

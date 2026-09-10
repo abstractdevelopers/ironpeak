@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" fill="none">
+  <defs>
+    <linearGradient id="bg1" x1="0" y1="0" x2="640" y2="360" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#141414"/><stop offset="1" stop-color="#232b16"/>
+    </linearGradient>
+    <pattern id="grid1" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" stroke="#ffffff" stroke-opacity="0.04"/>
+    </pattern>
+  </defs>
+  <rect width="640" height="360" fill="url(#bg1)"/>
+  <rect width="640" height="360" fill="url(#grid1)"/>
+  <circle cx="520" cy="70" r="150" fill="#c8ff2e" fill-opacity="0.07"/>
+  <!-- Barbell -->
+  <g transform="translate(320 180)">
+    <rect x="-190" y="-9" width="380" height="18" rx="9" fill="#3a3a3a"/>
+    <rect x="-60" y="-14" width="120" height="28" rx="6" fill="#c8ff2e"/>
+    <g fill="#c8ff2e">
+      <rect x="-150" y="-62" width="26" height="124" rx="8"/>
+      <rect x="-118" y="-46" width="20" height="92" rx="7"/>
+      <rect x="124" y="-62" width="26" height="124" rx="8"/>
+      <rect x="98" y="-46" width="20" height="92" rx="7"/>
+    </g>
+    <rect x="-160" y="-30" width="10" height="60" rx="5" fill="#8fbf1f"/>
+    <rect x="150" y="-30" width="10" height="60" rx="5" fill="#8fbf1f"/>
+  </g>
+  <text x="40" y="322" font-family="system-ui, sans-serif" font-size="15" font-weight="700" letter-spacing="4" fill="#c8ff2e">STRENGTH</text>
+</svg>

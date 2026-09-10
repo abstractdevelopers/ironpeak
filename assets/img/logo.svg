@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="176" height="40" viewBox="0 0 176 40" fill="none">
+  <!-- Icon: Mountain/Peak mark -->
+  <path d="M28 6L18 22L14 16L8 28H32L28 6Z" fill="#c8ff2e"/>
+  <path d="M20 14L16 22L24 22L20 14Z" fill="#0f0f0f"/>
+  <!-- Wordmark -->
+  <text x="40" y="24" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="800" letter-spacing="-0.5" fill="#ffffff">IRON<tspan fill="#c8ff2e">PEAK</tspan></text>
+  <text x="40" y="36" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="500" letter-spacing="3" fill="#999999">FITNESS</text>
+</svg>
