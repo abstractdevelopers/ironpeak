@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="NOVA — professional gamer, FPS specialist, and content creator. Ranked achievements, stats, and contact." />
+  <title>Gamer Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #05060f;
+      --bg-2: #0a0d1f;
+      --panel: #0c1024;
+      --line: rgba(0, 240, 255, 0.18);
+      --line-soft: rgba(255, 255, 255, 0.08);
+      --text: #e8ecff;
+      --muted: #7c86a8;
+      --cyan: #00f0ff;
+      --magenta: #ff2d78;
+      --lime: #b6ff2d;
+      --gold: #ffc93c;
+      --accent-soft: rgba(0, 240, 255, 0.08);
+      --max-w: 1140px;
+      --cut: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+      --cut-sm: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+      --font-display: "Orbitron", "Segoe UI", sans-serif;
+      --font-hud: "Chakra Petch", "Segoe UI", monospace;
+      --font-body: "Rajdhani", "Segoe UI", sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 1.02rem;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ===== Animated arena background ===== */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(900px 480px at 80% -10%, rgba(255, 45, 120, 0.13), transparent 60%),
+        radial-gradient(800px 460px at 8% 108%, rgba(0, 240, 255, 0.12), transparent 60%),
+        linear-gradient(180deg, #05060f 0%, #070a18 50%, #05060f 100%);
+    }
+    /* perspective grid floor */
+    body::after {
+      content: "";
+      position: fixed;
+      left: -50%;
+      right: -50%;
+      bottom: -12%;
+      height: 46%;
+      z-index: -1;
+      background:
+        linear-gradient(rgba(0, 240, 255, 0.16) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.16) 1px, transparent 1px);
+      background-size: 46px 46px;
+      transform: perspective(420px) rotateX(62deg);
+      transform-origin: center top;
+      animation: gridscroll 16s linear infinite;
+      mask-image: linear-gradient(180deg, transparent, #000 32%);
+      -webkit-mask-image: linear-gradient(180deg, transparent, #000 32%);
+      pointer-events: none;
+    }
+    @keyframes gridscroll {
+      from { background-position: 0 0, 0 0; }
+      to { background-position: 0 46px, 46px 0; }
+    }
+
+    /* CRT scanlines over everything */
+    .scanlines {
+      position: fixed;
+      inset: 0;
+      z-index: 90;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.14) 0px,
+        rgba(0, 0, 0, 0.14) 1px,
+        transparent 1px,
+        transparent 4px
+      );
+      mix-blend-mode: multiply;
+    }
+
+    .container { width: min(var(--max-w), 92%); margin-inline: auto; }
+
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      background: var(--cyan);
+      color: #031015;
+      padding: 0.5rem 1rem;
+      z-index: 100;
+      font-weight: 600;
+      clip-path: var(--cut-sm);
+    }
+    .skip-link:focus { left: 1rem; top: 1rem; }
+
+    /* ============ Header ============ */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      background: rgba(5, 6, 15, 0.82);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 0;
+      gap: 1rem;
+    }
+    .brand {
+      font-family: var(--font-display);
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      font-size: 1.15rem;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--text);
+      position: relative;
+      padding-left: 0.9rem;
+    }
+    .brand::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%) skewX(-20deg);
+      width: 5px;
+      height: 1.25em;
+      background: linear-gradient(180deg, var(--cyan), var(--magenta));
+    }
+    .brand span {
+      color: var(--cyan);
+      text-shadow: 0 0 14px rgba(0, 240, 255, 0.8);
+    }
+    .nav-links {
+      display: flex;
+      gap: 0.4rem;
+      list-style: none;
+      align-items: center;
+    }
+    .nav-links a {
+      display: block;
+      font-family: var(--font-hud);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0.45rem 0.85rem;
+      clip-path: var(--cut-sm);
+      transition: color 0.18s, background 0.18s;
+    }
+    .nav-links a:hover, .nav-links a:focus-visible {
+      color: var(--cyan);
+      background: var(--accent-soft);
+    }
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--line);
+      color: var(--cyan);
+      font-size: 1.25rem;
+      line-height: 1;
+      padding: 0.3rem 0.55rem;
+      cursor: pointer;
+      clip-path: var(--cut-sm);
+    }
+
+    /* ============ HUD frame corners ============ */
+    .hud-frame { position: relative; }
+    .hud-frame::before,
+    .hud-frame::after {
+      content: "";
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      border: 2px solid var(--cyan);
+      pointer-events: none;
+      filter: drop-shadow(0 0 6px rgba(0, 240, 255, 0.7));
+    }
+    .hud-frame::before { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+    .hud-frame::after { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+
+    /* ============ Hero ============ */
+    .hero {
+      position: relative;
+      padding: 6.5rem 0 5rem;
+      text-align: center;
+    }
+    .hero .tagline {
+      display: inline-block;
+      font-family: var(--font-hud);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      border: 1px solid var(--line);
+      background: var(--accent-soft);
+      padding: 0.4rem 1.1rem;
+      clip-path: var(--cut-sm);
+      margin-bottom: 1.4rem;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(2.6rem, 7vw, 4.6rem);
+      line-height: 1.05;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 1rem;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--cyan);
+      text-shadow:
+        0 0 18px rgba(0, 240, 255, 0.75),
+        0 0 46px rgba(0, 240, 255, 0.35);
+    }
+    /* glitch layers on the gamertag */
+    .glitch {
+      position: relative;
+      display: inline-block;
+    }
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+    .glitch::before {
+      color: var(--magenta);
+      animation: glitch-a 2.8s infinite steps(2, end);
+      clip-path: inset(0 0 55% 0);
+    }
+    .glitch::after {
+      color: var(--cyan);
+      animation: glitch-b 3.4s infinite steps(2, end);
+      clip-path: inset(60% 0 0 0);
+    }
+    @keyframes glitch-a {
+      0%, 92%, 100% { transform: none; opacity: 0; }
+      93% { transform: translate(-4px, -2px); opacity: 0.9; }
+      96% { transform: translate(3px, 1px); opacity: 0.9; }
+    }
+    @keyframes glitch-b {
+      0%, 90%, 100% { transform: none; opacity: 0; }
+      91% { transform: translate(4px, 2px); opacity: 0.9; }
+      95% { transform: translate(-3px, -1px); opacity: 0.9; }
+    }
+    .hero .role-line {
+      font-family: var(--font-hud);
+      font-size: 0.95rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--magenta);
+      text-shadow: 0 0 12px rgba(255, 45, 120, 0.6);
+      margin-bottom: 1.1rem;
+    }
+    .hero .role-line i { font-style: normal; color: var(--muted); text-shadow: none; }
+    .hero p.bio {
+      color: var(--muted);
+      max-width: 620px;
+      margin: 0 auto 2rem;
+      font-size: 1.12rem;
+      font-weight: 500;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block;
+      font-family: var(--font-hud);
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      padding: 0.8rem 1.7rem;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      clip-path: var(--cut-sm);
+      transition: transform 0.15s, box-shadow 0.15s, background 0.15s, color 0.15s;
+    }
+    .btn-primary {
+      background: linear-gradient(90deg, var(--cyan), #4dd7ff);
+      color: #031015;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 26px rgba(0, 240, 255, 0.55);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--magenta);
+      border: 1px solid rgba(255, 45, 120, 0.5);
+    }
+    .btn-ghost:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 45, 120, 0.1);
+      box-shadow: 0 0 22px rgba(255, 45, 120, 0.35);
+    }
+    .hero-rank {
+      margin-top: 2.6rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.9rem;
+      font-family: var(--font-hud);
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .hero-rank .rank {
+      font-weight: 700;
+      color: var(--gold);
+      text-shadow: 0 0 14px rgba(255, 201, 60, 0.7);
+      border: 1px solid rgba(255, 201, 60, 0.5);
+      background: rgba(255, 201, 60, 0.08);
+      padding: 0.35rem 1rem;
+      clip-path: var(--cut-sm);
+    }
+
+    /* ============ Sections ============ */
+    section { padding: 4.5rem 0; position: relative; }
+    section + section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(var(--max-w), 92%);
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--line), transparent);
+    }
+    .section-head { margin-bottom: 2.4rem; }
+    .section-head h2 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.7rem, 3.6vw, 2.3rem);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .section-head h2::before {
+      content: "// ";
+      color: var(--cyan);
+      text-shadow: 0 0 12px rgba(0, 240, 255, 0.6);
+    }
+    .section-head p {
+      color: var(--muted);
+      max-width: 620px;
+      margin-top: 0.5rem;
+      font-weight: 500;
+    }
+
+    /* ============ About ============ */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.45fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    .about-copy p {
+      color: var(--muted);
+      margin-bottom: 1.1rem;
+      font-size: 1.06rem;
+      font-weight: 500;
+    }
+    .about-copy p strong { color: var(--text); font-weight: 700; }
+    .about-copy p strong.hl { color: var(--cyan); }
+
+    .player-card {
+      background: linear-gradient(160deg, var(--panel), rgba(12, 16, 36, 0.55));
+      border: 1px solid var(--line);
+      clip-path: var(--cut);
+      padding: 1.5rem;
+      font-family: var(--font-hud);
+    }
+    .player-card .pc-head {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-bottom: 1.2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .avatar {
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 1.4rem;
+      color: #031015;
+      background: linear-gradient(135deg, var(--cyan), var(--magenta));
+      clip-path: var(--cut-sm);
+      flex-shrink: 0;
+    }
+    .pc-head .pc-name { font-weight: 700; font-size: 1.05rem; letter-spacing: 0.06em; }
+    .pc-head .pc-sub { color: var(--muted); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; }
+    .pc-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      padding: 0.5rem 0;
+      border-bottom: 1px dashed var(--line-soft);
+    }
+    .pc-row:last-child { border-bottom: none; }
+    .pc-row .k { color: var(--muted); text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.14em; }
+    .pc-row .v { color: var(--cyan); font-weight: 600; text-align: right; }
+    .pc-row .v.m { color: var(--magenta); }
+    .pc-row .v.g { color: var(--lime); }
+    /* HP / XP style meters */
+    .meter { margin-top: 1.1rem; }
+    .meter .meter-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+    .meter .meter-top b { color: var(--text); }
+    .meter-track {
+      height: 12px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--line-soft);
+      clip-path: var(--cut-sm);
+      overflow: hidden;
+      position: relative;
+    }
+    .meter-track i {
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, var(--lime), var(--cyan));
+      box-shadow: 0 0 12px rgba(182, 255, 45, 0.6);
+    }
+    .meter-track.xp i {
+      background: linear-gradient(90deg, var(--magenta), var(--gold));
+      box-shadow: 0 0 12px rgba(255, 45, 120, 0.55);
+    }
+    /* segmented tick overlay like game HUD bars */
+    .meter-track::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        90deg,
+        transparent 0 10px,
+        rgba(5, 6, 15, 0.85) 10px 12px
+      );
+    }
+
+    /* ============ Skills ============ */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.5rem 2.2rem;
+    }
+    .skill-block h3 {
+      font-family: var(--font-hud);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--muted);
+      margin-bottom: 1.3rem;
+      padding-left: 0.8rem;
+      border-left: 3px solid var(--magenta);
+    }
+    .skill { margin-bottom: 1.25rem; }
+    .skill .skill-top {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-hud);
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.45rem;
+    }
+    .skill .skill-top .pct { color: var(--cyan); }
+    .bar {
+      height: 10px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--line-soft);
+      clip-path: var(--cut-sm);
+      overflow: hidden;
+      position: relative;
+    }
+    .bar i {
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, var(--lime), var(--cyan));
+      box-shadow: 0 0 10px rgba(182, 255, 45, 0.5);
+    }
+    .bar::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(90deg, transparent 0 10px, rgba(5, 6, 15, 0.85) 10px 12px);
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+    .chip {
+      font-family: var(--font-hud);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      padding: 0.4rem 0.9rem;
+      border: 1px solid var(--line-soft);
+      background: var(--panel);
+      color: var(--muted);
+      clip-path: var(--cut-sm);
+      transition: color 0.2s, border-color 0.2s, text-shadow 0.2s;
+    }
+    .chip:hover {
+      color: var(--lime);
+      border-color: var(--lime);
+      text-shadow: 0 0 8px rgba(182, 255, 45, 0.6);
+    }
+
+    /* ============ Achievements ============ */
+    .filters { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1.8rem; }
+    .filter-btn {
+      font-family: var(--font-hud);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--panel);
+      border: 1px solid var(--line-soft);
+      clip-path: var(--cut-sm);
+      padding: 0.5rem 1.15rem;
+      cursor: pointer;
+      transition: color 0.18s, border-color 0.18s, background 0.18s;
+    }
+    .filter-btn:hover { color: var(--cyan); border-color: var(--cyan); }
+    .filter-btn[aria-pressed="true"] {
+      color: #031015;
+      background: var(--cyan);
+      border-color: var(--cyan);
+      box-shadow: 0 0 18px rgba(0, 240, 255, 0.4);
+    }
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+    }
+    .achievement {
+      position: relative;
+      background: var(--panel);
+      border: 1px solid var(--line-soft);
+      clip-path: var(--cut);
+      padding: 1.5rem 1.4rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      transition: transform 0.15s, border-color 0.2s, box-shadow 0.2s;
+    }
+    .achievement:hover {
+      transform: translateY(-4px);
+      border-color: rgba(0, 240, 255, 0.55);
+      box-shadow: 0 10px 30px rgba(0, 240, 255, 0.12);
+    }
+    .achievement .badge { font-size: 1.7rem; line-height: 1; }
+    .achievement h3 {
+      font-family: var(--font-hud);
+      font-size: 0.98rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      line-height: 1.35;
+    }
+    .achievement .meta {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-family: var(--font-hud);
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+    .cat {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      background: var(--accent-soft);
+      padding: 0.15rem 0.6rem;
+      clip-path: var(--cut-sm);
+    }
+    .achievement.hidden { display: none; }
+    .no-achievements {
+      font-family: var(--font-hud);
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      padding: 2rem 0;
+    }
+
+    /* ============ Stats ============ */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem;
+    }
+    .stat {
+      position: relative;
+      background: var(--panel);
+      border: 1px solid var(--line-soft);
+      clip-path: var(--cut);
+      padding: 1.7rem 1.4rem 1.5rem;
+      text-align: center;
+      transition: transform 0.15s, border-color 0.2s, box-shadow 0.2s;
+    }
+    .stat:hover {
+      transform: translateY(-4px);
+      border-color: rgba(0, 240, 255, 0.5);
+      box-shadow: 0 10px 30px rgba(0, 240, 255, 0.12);
+    }
+    .stat .num {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+      background: linear-gradient(90deg, var(--cyan), var(--magenta));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1.1;
+    }
+    .stat .num .suffix { font-size: 0.6em; }
+    .stat .label {
+      font-family: var(--font-hud);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.55rem;
+    }
+
+    /* ============ Contact ============ */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 2.2rem;
+      align-items: start;
+    }
+    .contact-info p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      font-weight: 500;
+      margin-bottom: 1.6rem;
+      max-width: 420px;
+    }
+    .contact-info p .handle { color: var(--cyan); font-weight: 700; }
+    .socials {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.7rem;
+    }
+    .socials a {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-family: var(--font-hud);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+      background: var(--panel);
+      border: 1px solid var(--line-soft);
+      clip-path: var(--cut-sm);
+      padding: 0.7rem 1rem;
+      transition: color 0.18s, border-color 0.18s, transform 0.15s;
+    }
+    .socials a:hover {
+      color: var(--cyan);
+      border-color: rgba(0, 240, 255, 0.55);
+      transform: translateY(-2px);
+    }
+    .socials a .ico { color: var(--magenta); }
+
+    .contact-form {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      clip-path: var(--cut);
+      padding: 1.7rem;
+      display: grid;
+      gap: 1.1rem;
+    }
+    .field { display: grid; gap: 0.4rem; }
+    .field label {
+      font-family: var(--font-hud);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .field input,
+    .field textarea {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--line-soft);
+      clip-path: var(--cut-sm);
+      padding: 0.7rem 0.9rem;
+      outline: none;
+      transition: border-color 0.18s, box-shadow 0.18s;
+      resize: vertical;
+    }
+    .field input:focus,
+    .field textarea:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 1px var(--cyan), 0 0 18px rgba(0, 240, 255, 0.25);
+    }
+    .form-note {
+      display: none;
+      font-family: var(--font-hud);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: var(--lime);
+    }
+    .form-note.ok { display: block; }
+
+    /* ============ Footer ============ */
+    .site-footer {
+      border-top: 1px solid var(--line);
+      padding: 1.6rem 0;
+    }
+    .site-footer .foot-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-family: var(--font-hud);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .site-footer .foot-row .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--lime);
+      box-shadow: 0 0 8px var(--lime);
+      margin-right: 0.5rem;
+    }
+
+    /* ============ Responsive ============ */
+    @media (max-width: 900px) {
+      .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .achievements-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero { padding: 5rem 0 4rem; }
+    }
+    @media (max-width: 640px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.35rem;
+        background: rgba(5, 6, 15, 0.97);
+        border-bottom: 1px solid var(--line);
+        padding: 1rem 1.5rem 1.3rem;
+      }
+      .nav-links.open { display: flex; }
+      .nav-toggle { display: block; }
+      .achievements-grid { grid-template-columns: 1fr; }
+      .socials { grid-template-columns: 1fr; }
+      .contact-form { padding: 1.3rem; }
+      section { padding: 3.4rem 0; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav" aria-label="Primary">
+        <a class="brand" href="#top">NO<span>VA</span></a>
+        <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">&#9776;</button>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#achievements">Achievements</a></li>
+          <li><a href="#stats">Stats</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============ Hero ============ -->
+    <section class="hero" id="top">
+      <div class="container">
+        <span class="tagline">// Player Profile Online</span>
+        <h1><span class="glitch" data-text="NOVA">NOVA</span> <em>KILLCHAIN</em></h1>
+        <p class="role-line"><i>Rank:</i> FPS Specialist &nbsp;·&nbsp; Content Creator</p>
+        <p class="bio">
+          Pro-rated tactical shooter. Three years of ranked ladder, two team rosters,
+          one obsession: <strong>reading the map before the enemy does.</strong>
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#achievements">View Loadout</a>
+          <a class="btn btn-ghost" href="#contact">Ping Me</a>
+        </div>
+        <div class="hero-rank">
+          <span>Current Season</span>
+          <span class="rank">Diamond II</span>
+          <span>2,847 CR</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ About ============ -->
+    <section id="about">
+      <div class="container">
+        <div class="section-head">
+          <h2>About</h2>
+          <p>Who's behind the controller — and what 10,000 hours of ranked really look like.</p>
+        </div>
+        <div class="about-grid">
+          <div class="about-copy">
+            <p>
+              I've been competitive since <strong>2021</strong>, grinding from Iron all the way to
+              <strong class="hl">Diamond II</strong> on the ranked ladder. Main weapon: whatever wins
+              the gunfight. Main role: <strong>entry / duelist</strong>.
+            </p>
+            <p>
+              Two seasons with team <strong>Void Syndicate</strong>, currently open to
+              <strong class="hl">content-creator and streamer partnerships</strong>, sponsorships, and
+              scrims that actually push.
+            </p>
+            <p>
+              Off-ladder you'll find me mapping in custom guns, editing clips, and building
+              the setup you're about to see.
+            </p>
+          </div>
+          <aside class="player-card hud-frame" aria-label="Player card">
+            <div class="pc-head">
+              <div class="avatar">NV</div>
+              <div>
+                <div class="pc-name">NOVA_KILLCHAIN</div>
+                <div class="pc-sub">Duelist · EU West</div>
+              </div>
+            </div>
+            <div class="pc-row"><span class="k">Rank</span><span class="v g">Diamond II</span></div>
+            <div class="pc-row"><span class="k">K/D</span><span class="v">1.42</span></div>
+            <div class="pc-row"><span class="k">Win Rate</span><span class="v m">61.3%</span></div>
+            <div class="pc-row"><span class="k">Hours Logged</span><span class="v">4,180</span></div>
+            <div class="meter">
+              <div class="meter-top"><span>HP</span><b>86 / 100</b></div>
+              <div class="meter-track"><i style="width: 86%"></i></div>
+            </div>
+            <div class="meter xp">
+              <div class="meter-top"><span>XP · Season 7</span><b>72,410 / 100,000</b></div>
+              <div class="meter-track xp"><i style="width: 72%"></i></div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Skills ============ -->
+    <section id="skills">
+      <div class="container">
+        <div class="section-head">
+          <h2>Skills</h2>
+          <p>Ranked by hours of play and tournament performance, not vibes.</p>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-block">
+            <h3>Primary</h3>
+            <div class="skill">
+              <div class="skill-top"><span>Valorant</span><span class="pct">95%</span></div>
+              <div class="bar"><i style="width: 95%"></i></div>
+            </div>
+            <div class="skill">
+              <div class="skill-top"><span>CS2</span><span class="pct">88%</span></div>
+              <div class="bar"><i style="width: 88%"></i></div>
+            </div>
+            <div class="skill">
+              <div class="skill-top"><span>Apex Legends</span><span class="pct">84%</span></div>
+              <div class="bar"><i style="width: 84%"></i></div>
+            </div>
+          </div>
+          <div class="skill-block">
+            <h3>Secondary</h3>
+            <div class="skill">
+              <div class="skill-top"><span>Fortnite</span><span class="pct">78%</span></div>
+              <div class="bar"><i style="width: 78%"></i></div>
+            </div>
+            <div class="skill">
+              <div class="skill-top"><span>Overwatch 2</span><span class="pct">75%</span></div>
+              <div class="bar"><i style="width: 75%"></i></div>
+            </div>
+            <div class="skill">
+              <div class="skill-top"><span>Teamfight Macro</span><span class="pct">91%</span></div>
+              <div class="bar"><i style="width: 91%"></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="chips" style="margin-top: 2.4rem;">
+          <span class="chip">Clutch 1v3</span>
+          <span class="chip">Entry Fragger</span>
+          <span class="chip">IGL</span>
+          <span class="chip">AWP</span>
+          <span class="chip">Sound Play</span>
+          <span class="chip">Spike Plant</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Achievements ============ -->
+    <section id="achievements">
+      <div class="container">
+        <div class="section-head">
+          <h2>Achievements</h2>
+          <p>Verified trophies from ranked play and team events. Filter by class.</p>
+        </div>
+        <div class="filters" role="group" aria-label="Filter achievements">
+          <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true">All</button>
+          <button class="filter-btn" type="button" data-filter="fps" aria-pressed="false">FPS</button>
+          <button class="filter-btn" type="button" data-filter="team" aria-pressed="false">Team</button>
+          <button class="filter-btn" type="button" data-filter="solo" aria-pressed="false">Solo</button>
+        </div>
+        <div class="achievements-grid">
+          <article class="achievement" data-cat="fps">
+            <span class="badge">🏆</span>
+            <h3>Global Elite &mdash; Valorant Champions</h3>
+            <div class="meta"><span class="cat">FPS</span><span>2025</span></div>
+          </article>
+          <article class="achievement" data-cat="team">
+            <span class="badge">🥇</span>
+            <h3>1st Place &mdash; Northgate Pro League Split 2</h3>
+            <div class="meta"><span class="cat">Team</span><span>2025</span></div>
+          </article>
+          <article class="achievement" data-cat="solo">
+            <span class="badge">🎯</span>
+            <h3>1.9 ADR &mdash; Solo queue, 200-match streak</h3>
+            <div class="meta"><span class="cat">Solo</span><span>2024</span></div>
+          </article>
+          <article class="achievement" data-cat="fps">
+            <span class="badge">🔫</span>
+            <h3>AWP Ace &times;3 in a single round (ranked)</h3>
+            <div class="meta"><span class="cat">FPS</span><span>2025</span></div>
+          </article>
+          <article class="achievement" data-cat="team">
+            <span class="badge">⚡</span>
+            <h3>Most Valuable Player &mdash; Ember Cup</h3>
+            <div class="meta"><span class="cat">Team</span><span>2024</span></div>
+          </article>
+          <article class="achievement" data-cat="solo">
+            <span class="badge">🛡️</span>
+            <h3>48-save clutch &mdash; sub-1v5 retake</h3>
+            <div class="meta"><span class="cat">Solo</span><span>2025</span></div>
+          </article>
+          <article class="achievement" data-cat="fps">
+            <span class="badge">💀</span>
+            <h3>300-match win streak at Immortal rank</h3>
+            <div class="meta"><span class="cat">FPS</span><span>2023</span></div>
+          </article>
+          <article class="achievement" data-cat="team">
+            <span class="badge">🎮</span>
+            <h3>Rooster &mdash; two full-time team invitations</h3>
+            <div class="meta"><span class="cat">Team</span><span>2024</span></div>
+          </article>
+          <article class="achievement" data-cat="solo">
+            <span class="badge">📡</span>
+            <h3>Lowest-elo win &mdash; soloed Emerald lobby</h3>
+            <div class="meta"><span class="cat">Solo</span><span>2023</span></div>
+          </article>
+        </div>
+        <p class="no-achievements" hidden>No achievements in this class yet.</p>
+      </div>
+    </section>
+
+    <!-- ============ Stats ============ -->
+    <section id="stats">
+      <div class="container">
+        <div class="section-head">
+          <h2>Live Stats</h2>
+          <p>Season 7 snapshot. Updated after every ranked queue.</p>
+        </div>
+        <div class="stats-grid">
+          <div class="stat">
+            <div class="num" data-count="4180">0</div>
+            <div class="label">Hours Played</div>
+          </div>
+          <div class="stat">
+            <div class="num" data-count="61.3" data-suffix="%">0</div>
+            <div class="label">Win Rate</div>
+          </div>
+          <div class="stat">
+            <div class="num" data-count="2847">0</div>
+            <div class="label">Competitive Rank</div>
+          </div>
+          <div class="stat">
+            <div class="num" data-count="12400" data-suffix="+">0</div>
+            <div class="label">Followers</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Contact ============ -->
+    <section id="contact">
+      <div class="container">
+        <div class="section-head">
+          <h2>Open Comms</h2>
+          <p>Squad invites, sponsorship, coaching, or just to swap clips &mdash; pick a channel.</p>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-info">
+            <ul class="socials">
+              <li><a class="social" href="#" target="_blank" rel="noopener"><span class="ico">📺</span><span class="s-name">Twitch</span><span class="s-sub">nova_killchain</span></a></li>
+              <li><a class="social" href="#" target="_blank" rel="noopener"><span class="ico">🎬</span><span class="s-name">YouTube</span><span class="s-sub">@NOVAkillchain</span></a></li>
+              <li><a class="social" href="#" target="_blank" rel="noopener"><span class="ico">✖</span><span class="s-name">X / Twitter</span><span class="s-sub">@nova_fps</span></a></li>
+              <li><a class="social" href="mailto:play@nova.gg"><span class="ico">✉</span><span class="s-name">Email</span><span class="s-sub">play@nova.gg</span></a></li>
+            </ul>
+            <p class="handle">Discord <b>nova#0001</b> &mdash; online most nights after 20:00 UTC.</p>
+          </div>
+          <form class="contact-form" onsubmit="return false;">
+            <div class="field">
+              <label for="f-name">Callsign</label>
+              <input id="f-name" name="name" type="text" placeholder="Your gamertag" required />
+            </div>
+            <div class="field">
+              <label for="f-email">Comms (email)</label>
+              <input id="f-email" name="email" type="email" placeholder="you@server.gg" required />
+            </div>
+            <div class="field">
+              <label for="f-msg">Message</label>
+              <textarea id="f-msg" name="message" rows="4" placeholder="Invite, idea, or trash talk" required></textarea>
+            </div>
+            <button class="btn btn-primary" type="submit" id="sendBtn">Transmit</button>
+            <p class="form-note" id="formNote" role="status"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; 2026 NOVA KILLCHAIN &mdash; GG WP</span>
+      <span class="f-rank">Status: <b id="statusDot">ONLINE</b></span>
+    </div>
+  </footer>
+
+  <script>
+    // mobile nav
+    var toggle = document.querySelector('.nav-toggle');
+    var links = document.querySelector('.nav-links');
+    toggle.addEventListener('click', function () {
+      var open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    links.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') { links.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); }
+    });
+
+    // achievement filters
+    var filterBtns = document.querySelectorAll('.filter-btn');
+    var achs = document.querySelectorAll('.achievement');
+    var empty = document.querySelector('.no-achievements');
+    filterBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        filterBtns.forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+        btn.setAttribute('aria-pressed', 'true');
+        var cat = btn.dataset.filter, shown = 0;
+        achs.forEach(function (a) {
+          var show = cat === 'all' || a.dataset.cat === cat;
+          a.classList.toggle('hidden', !show);
+          if (show) shown++;
+        });
+        empty.hidden = shown > 0;
+      });
+    });
+
+    // stat count-up on scroll
+    var nums = document.querySelectorAll('.num[data-count]');
+    var seen = false;
+    function fmt(v, dec, suffix) {
+      var s = dec ? v.toFixed(1) : Math.round(v).toLocaleString('en-US');
+      return s + (suffix || '');
+    }
+    function countUp() {
+      if (seen) return; seen = true;
+      nums.forEach(function (el) {
+        var target = parseFloat(el.dataset.count);
+        var dec = el.dataset.count.indexOf('.') !== -1;
+        var suffix = el.dataset.suffix || '';
+        var t0 = performance.now(), dur = 1200;
+        function step(t) {
+          var p = Math.min((t - t0) / dur, 1);
+          var eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = fmt(target * eased, dec, suffix);
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    }
+    var statsSec = document.getElementById('stats');
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries, io) {
+        if (entries[0].isIntersecting) { countUp(); io.disconnect(); }
+      }, { threshold: 0.3 }).observe(statsSec);
+    } else { countUp(); }
+
+    // fake form feedback (no backend)
+    var sendBtn = document.getElementById('sendBtn');
+    var formNote = document.getElementById('formNote');
+    sendBtn.addEventListener('click', function () {
+      var form = document.querySelector('.contact-form');
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      formNote.textContent = '// Message queued. Expect a reply within 24h. GG.';
+      formNote.style.color = 'var(--lime)';
+      form.reset();
+    });
+  </script>
+</body>
+</html>
